@@ -6,14 +6,7 @@ import Collections from "./collections";
 function App() {
   return(
     <div className="App">
-      <div className="unknown">
-        <header className="App-header">
-          <Collections />
-        </header> 
-        <div className="App-body">
-        Welcome
-        </div>
-      </div>
+      <Collections />
     </div>
   )
 
