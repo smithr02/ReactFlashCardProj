@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Axios from "axios";
+import * as api from './api';
 class Collections extends Component {
     state={
         selected: null,
@@ -7,16 +7,25 @@ class Collections extends Component {
         rendercollections: null,
     }
     componentDidMount(){
-        var result=Axios.get("https://localhost:44393/api/collections");
-     this.setState({
-        collections: result,
-     })   
+        api.Get().then((response) => {
+            var result = response;
+            var rendered=this.rendercollections(result);
+         this.setState({
+            collections: result,
+            rendercollections: rendered, 
+         })}, (error) =>{
+             //console.log(response);
+         });       
     }
     rendercollections(data){
         var collections= [];
         for (let index = 0; index < data.length; index++) {
             const element = data[index];
-            
+            collections.push(
+                <div>
+                  {data[index].title}  
+                </div>
+          );  
         }
     }
     
@@ -24,7 +33,7 @@ class Collections extends Component {
         return (
             <div className="unknown">
                 <header className="App-header">
-                Flash Card Index
+                {this.state.rendercollections}
                 </header> 
                 <div className="App-body">
                 Welcome
